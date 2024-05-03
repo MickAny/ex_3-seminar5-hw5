@@ -2,6 +2,7 @@ package seminar5.ex_3.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import seminar5.ex_3.aspects.TrackUserAction;
 import seminar5.ex_3.model.User;
 import seminar5.ex_3.repository.UserRepository;
 
@@ -28,6 +29,7 @@ public class UserService {
      *
      * @return список пользователей
      */
+    @TrackUserAction
     public List<User> getAll() {
         return userRepository.findAll();
     }

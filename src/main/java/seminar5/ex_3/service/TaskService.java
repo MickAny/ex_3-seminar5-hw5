@@ -2,6 +2,7 @@ package seminar5.ex_3.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+import seminar5.ex_3.aspects.TrackUserAction;
 import seminar5.ex_3.model.Task;
 import seminar5.ex_3.model.TaskStatus;
 import seminar5.ex_3.model.User;
@@ -30,6 +31,7 @@ public class TaskService {
      * @param task задача
      * @param user пользователь кому дать задачу
      */
+    @TrackUserAction
     public void create(Task task, User user) {
         task.setUser(user);
         taskRepository.save(task);
@@ -42,6 +44,7 @@ public class TaskService {
      * @param description   текст задачи
      * @param id            ID задачи
      */
+    @TrackUserAction
     public void taskInsert(String title, String description, int id) {
         taskRepository.addTask(title, description, id);
     }
@@ -71,6 +74,7 @@ public class TaskService {
      *
      * @param task задача
      */
+    @TrackUserAction
     public void delTask(Task task) {
         taskRepository.delete(task);
     }
@@ -80,6 +84,7 @@ public class TaskService {
      *
      * @param id ID задачи
      */
+    @TrackUserAction
     public void delTask(int id) {
         taskRepository.delete(getById(id));
     }
@@ -99,6 +104,7 @@ public class TaskService {
      *
      * @param task задача
      */
+    @TrackUserAction
     public void updateTask(Task task) {
         taskRepository.updateTask(task.getTitle(), task.getText(), task.getTaskStatus(), task.getId());
     }
@@ -110,6 +116,7 @@ public class TaskService {
      * @param title новое название
      * @param desc  новое описание
      */
+    @TrackUserAction
     public void updateTask(int id, String title, String desc) {
         Task task = taskRepository.getById(id);
         if (task != null) {
