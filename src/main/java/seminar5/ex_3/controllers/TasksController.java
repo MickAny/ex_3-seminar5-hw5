@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import seminar5.ex_3.model.Task;
 import seminar5.ex_3.model.TaskStatus;
+import seminar5.ex_3.service.FileGateway;
 import seminar5.ex_3.service.TaskService;
 import seminar5.ex_3.service.UserService;
 
@@ -18,6 +19,8 @@ public class TasksController {
     private final UserService userService;
 
     private final TaskService taskService;
+
+    private final FileGateway fileGateway;
 
     /**
      * Получение главной страницы html
@@ -118,6 +121,7 @@ public class TasksController {
     @GetMapping("/createTask/{id}")
     public String getCreateTaskForm(Task task, @PathVariable("id") int id, Model model) {
         model.addAttribute("id", id);
+        fileGateway.writeToFile("records.txt", task.toString());
         return "task-create";
     }
 
